@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.*
+input/
+output/
+models/
+.trash/
+*.gguf
+*.safetensors
+*.ckpt
+*.mp4
+*.mp3
+*.wav
+*.flac
