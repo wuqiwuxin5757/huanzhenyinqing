@@ -1,0 +1,151 @@
+{
+  "i2v": {
+    "files": [
+      "models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "models/vae/wan_2.1_vae.safetensors",
+      "models/unet/Wan2.2-I2V-A14B-HighNoise-Q4_K_M.gguf",
+      "models/unet/Wan2.2-I2V-A14B-LowNoise-Q4_K_M.gguf",
+      "models/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors",
+      "models/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors"
+    ],
+    "nodes": [
+      "CLIPLoader",
+      "CLIPTextEncode",
+      "VAELoader",
+      "UnetLoaderGGUF",
+      "LoraLoaderModelOnly",
+      "ModelSamplingSD3",
+      "KSamplerAdvanced",
+      "VAEDecode",
+      "CreateVideo",
+      "SaveVideo",
+      "LoadImage",
+      "WanImageToVideo",
+      "WanFirstLastFrameToVideo"
+    ]
+  },
+  "t2v": {
+    "files": [
+      "models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "models/vae/wan_2.1_vae.safetensors",
+      "models/unet/Wan2.2-T2V-A14B-HighNoise-Q4_K_M.gguf",
+      "models/unet/Wan2.2-T2V-A14B-LowNoise-Q4_K_M.gguf",
+      "models/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors",
+      "models/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors"
+    ],
+    "nodes": [
+      "CLIPLoader",
+      "CLIPTextEncode",
+      "VAELoader",
+      "UnetLoaderGGUF",
+      "LoraLoaderModelOnly",
+      "ModelSamplingSD3",
+      "KSamplerAdvanced",
+      "VAEDecode",
+      "CreateVideo",
+      "SaveVideo",
+      "EmptyHunyuanLatentVideo"
+    ]
+  },
+  "tts": {
+    "files": [],
+    "nodes": [
+      "FB_Qwen3TTSVoiceDesign",
+      "SaveAudio"
+    ]
+  },
+  "talk": {
+    "files": [
+      "models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "models/unet/wan2.1-i2v-14b-480p-Q5_K_M.gguf",
+      "models/loras/lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
+      "models/model_patches/wan2.1_infiniteTalk_multi_fp16.safetensors",
+      "models/audio_encoders/wav2vec2-chinese-base_fp16.safetensors",
+      "models/vae/Wan2_1_VAE_bf16.safetensors"
+    ],
+    "nodes": [
+      "CLIPLoader",
+      "CLIPTextEncode",
+      "VAELoader",
+      "UnetLoaderGGUF",
+      "LoraLoaderModelOnly",
+      "ModelSamplingSD3",
+      "KSamplerAdvanced",
+      "VAEDecode",
+      "CreateVideo",
+      "SaveVideo",
+      "FB_Qwen3TTSVoiceDesign",
+      "LoadImage",
+      "WanInfiniteTalkToVideo",
+      "AudioEncoderLoader",
+      "ModelPatchLoader"
+    ]
+  },
+  "sound": {
+    "files": [
+      "models/mmaudio/mmaudio_large_44k_v2_fp16.safetensors",
+      "models/mmaudio/mmaudio_vae_44k_fp16.safetensors",
+      "models/mmaudio/mmaudio_synchformer_fp16.safetensors",
+      "models/mmaudio/apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors"
+    ],
+    "nodes": [
+      "MMAudioModelLoader",
+      "MMAudioFeatureUtilsLoader",
+      "EasyMMAudioSampler"
+    ]
+  },
+  "music": {
+    "files": [
+      "models/diffusion_models/acestep_v1.5_turbo.safetensors",
+      "models/text_encoders/qwen_0.6b_ace15.safetensors",
+      "models/text_encoders/qwen_1.7b_ace15.safetensors",
+      "models/vae/ace_1.5_vae.safetensors"
+    ],
+    "nodes": [
+      "TextEncodeAceStepAudio1.5",
+      "EmptyAceStep1.5LatentAudio",
+      "DualCLIPLoader",
+      "SaveAudioMP3"
+    ]
+  },
+  "upscale": {
+    "files": [
+      "models/diffusion_models/seedvr2_3b_int8_convrot.safetensors",
+      "models/vae/seedvr2_ema_vae_fp16.safetensors"
+    ],
+    "nodes": [
+      "SeedVR2Preprocess",
+      "SeedVR2Conditioning",
+      "SeedVR2PostProcessing"
+    ]
+  },
+  "interp": {
+    "files": [
+      "models/frame_interpolation/film_net_fp16.safetensors"
+    ],
+    "nodes": [
+      "FrameInterpolationModelLoader",
+      "FrameInterpolate"
+    ]
+  },
+  "edit": {
+    "files": [
+      "models/diffusion_models/qwen_image_2.1_turbo_int8_convrot.safetensors",
+      "models/text_encoders/qwen3vl_8b_int8_convrot.safetensors",
+      "models/vae/qwen_image_2.1_vae_bf16.safetensors"
+    ],
+    "nodes": [
+      "QwenImage21Cache",
+      "TextEncodeQwenImage21",
+      "SaveImage"
+    ]
+  },
+  "storyboard": {
+    "files": [
+      "../../llama.cpp/bin/llama-server.exe",
+      "../../llama.cpp/models/Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "../../llama.cpp/models/mmproj-Qwen3VL-8B-Instruct-F16.gguf"
+    ],
+    "nodes": []
+  }
+}
